@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celestra's Feminine Panda Calendar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
+            color: #5a3d5c;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Quicksand', sans-serif;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        .calendar-wrapper {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+            border: 12px solid transparent;
+            background-clip: padding-box;
+        }
+        
+        .calendar-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: -12px;
+            right: -12px;
+            bottom: -12px;
+            z-index: -1;
+            background: linear-gradient(135deg, #e91e63, #9c27b0, #ff80ab);
+            border-radius: 30px;
+        }
+        
+        .floral-border {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background-image: 
+                url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23f48fb1' fill-opacity='0.2' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #f8bbd9 0%, #f48fb1 100%);
+            color: white;
+            padding: 35px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 3;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            font-family: 'Dancing Script', cursive;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            color: #fff;
+            margin-bottom: 25px;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        
+        .panda-decoration {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-top: 20px;
+        }
+        
+        .panda-face {
+            width: 90px;
+            height: 90px;
+            background-color: white;
+            border-radius: 50%;
+            position: relative;
+            border: 3px solid #5a3d5c;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .panda-face::before {
+            content: '';
+            position: absolute;
+            width: 110%;
+            height: 110%;
+            top: -5%;
+            left: -5%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+            z-index: 1;
+        }
+        
+        .panda-eye {
+            position: absolute;
+            width: 22px;
+            height: 28px;
+            background-color: #5a3d5c;
+            border-radius: 50%;
+            top: 28px;
+            z-index: 2;
+        }
+        
+        .panda-eye.left { left: 22px; }
+        .panda-eye.right { right: 22px; }
+        
+        .panda-eye::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: white;
+            border-radius: 50%;
+            top: 6px;
+            left: 5px;
+        }
+        
+        .panda-nose {
+            position: absolute;
+            width: 18px;
+            height: 12px;
+            background-color: #5a3d5c;
+            border-radius: 50%;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+        
+        .panda-mouth {
+            position: absolute;
+            width: 35px;
+            height: 15px;
+            border-bottom: 3px solid #5a3d5c;
+            border-radius: 0 0 20px 20px;
+            bottom: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+        
+        .panda-bow {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(135deg, #e91e63 0%, #9c27b0 100%);
+            border-radius: 50% 50% 50% 0;
+            top: -10px;
+            right: 15px;
+            transform: rotate(45deg);
+            z-index: 3;
+        }
+        
+        .panda-bow::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: linear-gradient(135deg, #e91e63 0%, #9c27b0 100%);
+            border-radius: 50%;
+            top: 5px;
+            left: 5px;
+        }
+        
+        .calendar-container {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 0;
+            position: relative;
+            z-index: 3;
+        }
+        
+        @media (max-width: 900px) {
+            .calendar-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .calendar {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed #f8bbd9;
+        }
+        
+        .calendar-header h2 {
+            color: #9c27b0;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+        
+        .nav-btn {
+            background: #f8bbd9;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-btn:hover {
+            background: #e91e63;
+            transform: scale(1.1);
+        }
+        
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-weight: bold;
+            color: #e91e63;
+            margin-bottom: 15px;
+            background-color: #fce4ec;
+            padding: 12px 0;
+            border-radius: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+        }
+        
+        .day {
+            height: 85px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .day:hover {
+            background-color: #fce4ec;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .day.current {
+            background: linear-gradient(135deg, #f8bbd9 0%, #f48fb1 100%);
+            color: white;
+            border-color: #e91e63;
+        }
+        
+        .day.other-month {
+            color: #d7b1c5;
+            background-color: #f9f9f9;
+        }
+        
+        .day-number {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+            z-index: 2;
+        }
+        
+        .event-indicator {
+            width: 8px;
+            height: 8px;
+            background-color: #e91e63;
+            border-radius: 50%;
+            margin-top: auto;
+            align-self: center;
+            z-index: 2;
+        }
+        
+        .panda-event {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            font-size: 0.9rem;
+            color: #9c27b0;
+            z-index: 2;
+        }
+        
+        .bamboo-pattern {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background-image: 
+                linear-gradient(45deg, transparent 45%, #8bc34a 45%, #8bc34a 55%, transparent 55%),
+                linear-gradient(-45deg, transparent 45%, #8bc34a 45%, #8bc34a 55%, transparent 55%);
+            background-size: 20px 20px;
+            opacity: 0.3;
+        }
+        
+        .sidebar {
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
+            color: #5a3d5c;
+            padding: 30px 25px;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .sidebar h3 {
+            color: #9c27b0;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f48fb1;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+        }
+        
+        .sidebar h3 i {
+            color: #e91e63;
+        }
+        
+        .event-list {
+            list-style-type: none;
+            flex-grow: 1;
+            overflow-y: auto;
+            max-height: 300px;
+            margin-bottom: 20px;
+        }
+        
+        .event-item {
+            padding: 15px;
+            margin-bottom: 12px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            border-left: 4px solid #e91e63;
+            transition: all 0.3s;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .event-item:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            transform: translateX(5px);
+        }
+        
+        .event-time {
+            font-weight: bold;
+            color: #e91e63;
+            font-size: 0.95rem;
+        }
+        
+        .event-title {
+            margin-top: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .add-event {
+            margin-top: 20px;
+        }
+        
+        .add-event h3 {
+            color: #9c27b0;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+        }
+        
+        .add-event input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 12px;
+            border: 1px solid #f48fb1;
+            border-radius: 12px;
+            background-color: rgba(255, 255, 255, 0.8);
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+        }
+        
+        .add-event input:focus {
+            outline: none;
+            border-color: #e91e63;
+            box-shadow: 0 0 0 2px rgba(233, 30, 99, 0.2);
+        }
+        
+        .add-event button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #e91e63 0%, #9c27b0 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .add-event button:hover {
+            background: linear-gradient(135deg, #d81b60 0%, #8e24aa 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .panda-corner {
+            position: absolute;
+            bottom: 25px;
+            right: 25px;
+            z-index: 4;
+        }
+        
+        .panda-sitting {
+            width: 140px;
+            height: 140px;
+            position: relative;
+        }
+        
+        .panda-body-sitting {
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            border: 3px solid #5a3d5c;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .panda-ear-sitting {
+            width: 30px;
+            height: 30px;
+            background-color: #5a3d5c;
+            border-radius: 50%;
+            position: absolute;
+            top: -15px;
+        }
+        
+        .panda-ear-sitting.left { left: 20px; }
+        .panda-ear-sitting.right { right: 20px; }
+        
+        .panda-face-sitting {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            top: 15px;
+            left: 15px;
+        }
+        
+        .panda-bamboo {
+            position: absolute;
+            width: 8px;
+            height: 70px;
+            background: linear-gradient(to bottom, #8bc34a 0%, #689f38 100%);
+            border-radius: 4px;
+            bottom: 10px;
+            left: -40px;
+            transform: rotate(15deg);
+        }
+        
+        .panda-bamboo::before, .panda-bamboo::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: #8bc34a;
+            border-radius: 50% 0;
+        }
+        
+        .panda-bamboo::before {
+            top: -15px;
+            left: -10px;
+            transform: rotate(45deg);
+        }
+        
+        .panda-bamboo::after {
+            top: 15px;
+            left: -15px;
+            transform: rotate(135deg);
+        }
+        
+        .panda-bow-sitting {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #e91e63 0%, #9c27b0 100%);
+            border-radius: 50% 50% 50% 0;
+            top: -5px;
+            right: 25px;
+            transform: rotate(45deg);
+            z-index: 3;
+        }
+        
+        .panda-bow-sitting::after {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(135deg, #e91e63 0%, #9c27b0 100%);
+            border-radius: 50%;
+            top: 6px;
+            left: 6px;
+        }
+        
+        .floating-hearts {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 2;
+        }
+        
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #e91e63 0%, #f48fb1 100%);
+            transform: rotate(45deg);
+            opacity: 0.7;
+        }
+        
+        .heart:before, .heart:after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #e91e63 0%, #f48fb1 100%);
+            border-radius: 50%;
+            position: absolute;
+        }
+        
+        .heart:before {
+            top: -10px;
+            left: 0;
+        }
+        
+        .heart:after {
+            top: 0;
+            left: -10px;
+        }
+        
+        .heart1 { top: 10px; left: 30px; animation: float 6s ease-in-out infinite; }
+        .heart2 { top: 40px; left: 10px; animation: float 7s ease-in-out infinite 1s; }
+        .heart3 { top: 70px; left: 50px; animation: float 5s ease-in-out infinite 2s; }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(45deg); }
+            50% { transform: translateY(-15px) rotate(45deg); }
+            100% { transform: translateY(0) rotate(45deg); }
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #9c27b0;
+            font-size: 1rem;
+            position: relative;
+            z-index: 3;
+            background: rgba(255, 255, 255, 0.5);
+            border-top: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .bamboo-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(139, 195, 74, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(139, 195, 74, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(139, 195, 74, 0.05) 0%, transparent 20%);
+            pointer-events: none;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="calendar-wrapper">
+            <div class="bamboo-background"></div>
+            <div class="floral-border"></div>
+            
+            <div class="floating-hearts">
+                <div class="heart heart1"></div>
+                <div class="heart heart2"></div>
+                <div class="heart heart3"></div>
+            </div>
+            
+            <header class="header">
+                <h1>Celestra's Panda Calendar</h1>
+                <p class="subtitle">Embrace your journey with grace and bamboo-tastic style!</p>
+                <div class="panda-decoration">
+                    <div class="panda-face">
+                        <div class="panda-bow"></div>
+                        <div class="panda-eye left"></div>
+                        <div class="panda-eye right"></div>
+                        <div class="panda-nose"></div>
+                        <div class="panda-mouth"></div>
+                    </div>
+                    <div class="panda-face">
+                        <div class="panda-bow"></div>
+                        <div class="panda-eye left"></div>
+                        <div class="panda-eye right"></div>
+                        <div class="panda-nose"></div>
+                        <div class="panda-mouth"></div>
+                    </div>
+                    <div class="panda-face">
+                        <div class="panda-bow"></div>
+                        <div class="panda-eye left"></div>
+                        <div class="panda-eye right"></div>
+                        <div class="panda-nose"></div>
+                        <div class="panda-mouth"></div>
+                    </div>
+                </div>
+            </header>
+            
+            <div class="calendar-container">
+                <div class="calendar">
+                    <div class="calendar-header">
+                        <button class="nav-btn" id="prev-month">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <h2 id="current-month">Month Year</h2>
+                        <button class="nav-btn" id="next-month">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="weekdays">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div>
+                    </div>
+                    
+                    <div class="days" id="calendar-days">
+                        <!-- Days will be generated by JavaScript -->
+                    </div>
+                    <div class="bamboo-pattern"></div>
+                </div>
+                
+                <div class="sidebar">
+                    <h3><i class="fas fa-heart"></i> Today's Events</h3>
+                    <ul class="event-list" id="event-list">
+                        <!-- Events will be populated by JavaScript -->
+                    </ul>
+                    
+                    <div class="add-event">
+                        <h3><i class="fas fa-plus-circle"></i> Add New Event</h3>
+                        <input type="text" id="event-title" placeholder="Event title">
+                        <input type="date" id="event-date">
+                        <button id="add-event-btn">
+                            <i class="fas fa-calendar-plus"></i> Add Event
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panda-corner">
+                <div class="panda-sitting">
+                    <div class="panda-body-sitting">
+                        <div class="panda-bow-sitting"></div>
+                        <div class="panda-ear-sitting left"></div>
+                        <div class="panda-ear-sitting right"></div>
+                        <div class="panda-face-sitting">
+                            <div class="panda-eye left"></div>
+                            <div class="panda-eye right"></div>
+                            <div class="panda-nose"></div>
+                            <div class="panda-mouth"></div>
+                        </div>
+                    </div>
+                    <div class="panda-bamboo"></div>
+                </div>
+            </div>
+            
+            <footer>
+                <p>Made with love for Celestra • Embrace your inner panda • © 2023</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // Current date
+        let currentDate = new Date();
+        let currentMonth = currentDate.getMonth();
+        let currentYear = currentDate.getFullYear();
+        
+        // Sample events data with feminine and panda themes
+        let events = [
+            { title: "Yoga & Meditation", date: new Date(currentYear, currentMonth, 5), id: 1 },
+            { title: "Brunch with Friends", date: new Date(currentYear, currentMonth, 12), id: 2 },
+            { title: "Panda Conservation Meeting", date: new Date(currentYear, currentMonth, 18), id: 3 },
+            { title: "Art & Craft Workshop", date: new Date(currentYear, currentMonth, 22), id: 4 },
+            { title: "Bamboo Forest Walk", date: new Date(currentYear, currentMonth, 25), id: 5 },
+            { title: "Self-Care Day", date: new Date(currentYear, currentMonth, 28), id: 6 },
+            { title: "Book Club Meeting", date: new Date(currentYear, currentMonth, 8), id: 7 },
+            { title: "Nature Photography", date: new Date(currentYear, currentMonth, 15), id: 8 }
+        ];
+        
+        // DOM elements
+        const currentMonthElement = document.getElementById('current-month');
+        const calendarDaysElement = document.getElementById('calendar-days');
+        const prevMonthButton = document.getElementById('prev-month');
+        const nextMonthButton = document.getElementById('next-month');
+        const eventListElement = document.getElementById('event-list');
+        const addEventButton = document.getElementById('add-event-btn');
+        const eventTitleInput = document.getElementById('event-title');
+        const eventDateInput = document.getElementById('event-date');
+        
+        // Set today's date as default for new events
+        eventDateInput.valueAsDate = new Date();
+        
+        // Month names
+        const monthNames = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        
+        // Panda-themed event types
+        const pandaEvents = ["panda", "bamboo", "forest", "nature", "wildlife", "conservation"];
+        
+        // Feminine-themed event types
+        const feminineEvents = ["yoga", "meditation", "brunch", "art", "craft", "self-care", "book club"];
+        
+        // Render calendar
+        function renderCalendar() {
+            // Update current month display
+            currentMonthElement.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+            
+            // Clear previous days
+            calendarDaysElement.innerHTML = '';
+            
+            // Get first day of month and number of days in month
+            const firstDay = new Date(currentYear, currentMonth, 1);
+            const lastDay = new Date(currentYear, currentMonth + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            const startingDay = firstDay.getDay();
+            
+            // Previous month days
+            const prevMonthLastDay = new Date(currentYear, currentMonth, 0).getDate();
+            for (let i = 0; i < startingDay; i++) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'day other-month';
+                dayElement.innerHTML = `
+                    <div class="day-number">${prevMonthLastDay - startingDay + i + 1}</div>
+                `;
+                calendarDaysElement.appendChild(dayElement);
+            }
+            
+            // Current month days
+            const today = new Date();
+            for (let i = 1; i <= daysInMonth; i++) {
+                const dayElement = document.createElement('div');
+                const dayDate = new Date(currentYear, currentMonth, i);
+                
+                // Check if this day has events
+                const dayEvents = events.filter(event => 
+                    event.date.getDate() === i && 
+                    event.date.getMonth() === currentMonth && 
+                    event.date.getFullYear() === currentYear
+                );
+                
+                // Check if this is today
+                const isToday = today.getDate() === i && 
+                               today.getMonth() === currentMonth && 
+                               today.getFullYear() === currentYear;
+                
+                dayElement.className = `day ${isToday ? 'current' : ''}`;
+                
+                // Check if any events are panda-themed or feminine-themed
+                const hasPandaEvent = dayEvents.some(event => 
+                    pandaEvents.some(pandaEvent => 
+                        event.title.toLowerCase().includes(pandaEvent)
+                    )
+                );
+                
+                const hasFeminineEvent = dayEvents.some(event => 
+                    feminineEvents.some(femEvent => 
+                        event.title.toLowerCase().includes(femEvent)
+                    )
+                );
+                
+                dayElement.innerHTML = `
+                    <div class="day-number">${i}</div>
+                    ${dayEvents.length > 0 ? '<div class="event-indicator"></div>' : ''}
+                    ${hasPandaEvent ? '<div class="panda-event"><i class="fas fa-paw"></i></div>' : ''}
+                    ${hasFeminineEvent && !hasPandaEvent ? '<div class="panda-event"><i class="fas fa-heart"></i></div>' : ''}
+                `;
+                
+                // Add click event to show events for this day
+                dayElement.addEventListener('click', () => {
+                    showEventsForDay(dayDate);
+                });
+                
+                calendarDaysElement.appendChild(dayElement);
+            }
+            
+            // Next month days
+            const totalCells = 42; // 6 rows x 7 columns
+            const remainingCells = totalCells - (startingDay + daysInMonth);
+            for (let i = 1; i <= remainingCells; i++) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'day other-month';
+                dayElement.innerHTML = `
+                    <div class="day-number">${i}</div>
+                `;
+                calendarDaysElement.appendChild(dayElement);
+            }
+            
+            // Update today's events
+            updateTodayEvents();
+        }
+        
+        // Show events for a specific day
+        function showEventsForDay(date) {
+            const dayEvents = events.filter(event => 
+                event.date.getDate() === date.getDate() && 
+                event.date.getMonth() === date.getMonth() && 
+                event.date.getFullYear() === date.getFullYear()
+            );
+            
+            eventListElement.innerHTML = '';
+            
+            if (dayEvents.length === 0) {
+                eventListElement.innerHTML = '<li class="event-item">No events for this day. Time for self-care!</li>';
+                return;
+            }
+            
+            dayEvents.forEach(event => {
+                const eventItem = document.createElement('li');
+                eventItem.className = 'event-item';
+                
+                // Add appropriate icon based on event type
+                const isPandaEvent = pandaEvents.some(pandaEvent => 
+                    event.title.toLowerCase().includes(pandaEvent)
+                );
+                
+                const isFeminineEvent = feminineEvents.some(femEvent => 
+                    event.title.toLowerCase().includes(femEvent)
+                );
+                
+                let icon = '';
+                if (isPandaEvent) {
+                    icon = '<i class="fas fa-paw"></i> ';
+                } else if (isFeminineEvent) {
+                    icon = '<i class="fas fa-heart"></i> ';
+                } else {
+                    icon = '<i class="fas fa-calendar-check"></i> ';
+                }
+                
+                eventItem.innerHTML = `
+                    <div class="event-time">${formatTime(event.date)}</div>
+                    <div class="event-title">${icon}${event.title}</div>
+                `;
+                eventListElement.appendChild(eventItem);
+            });
+        }
+        
+        // Update today's events in the sidebar
+        function updateTodayEvents() {
+            const today = new Date();
+            const todayEvents = events.filter(event => 
+                event.date.getDate() === today.getDate() && 
+                event.date.getMonth() === today.getMonth() && 
+                event.date.getFullYear() === today.getFullYear()
+            );
+            
+            eventListElement.innerHTML = '';
+            
+            if (todayEvents.length === 0) {
+                eventListElement.innerHTML = '<li class="event-item">No events for today. Enjoy some peaceful moments!</li>';
+                return;
+            }
+            
+            todayEvents.forEach(event => {
+                const eventItem = document.createElement('li');
+                eventItem.className = 'event-item';
+                
+                // Add appropriate icon based on event type
+                const isPandaEvent = pandaEvents.some(pandaEvent => 
+                    event.title.toLowerCase().includes(pandaEvent)
+                );
+                
+                const isFeminineEvent = feminineEvents.some(femEvent => 
+                    event.title.toLowerCase().includes(femEvent)
+                );
+                
+                let icon = '';
+                if (isPandaEvent) {
+                    icon = '<i class="fas fa-paw"></i> ';
+                } else if (isFeminineEvent) {
+                    icon = '<i class="fas fa-heart"></i> ';
+                } else {
+                    icon = '<i class="fas fa-calendar-check"></i> ';
+                }
+                
+                eventItem.innerHTML = `
+                    <div class="event-time">${formatTime(event.date)}</div>
+                    <div class="event-title">${icon}${event.title}</div>
+                `;
+                eventListElement.appendChild(eventItem);
+            });
+        }
+        
+        // Format time for display
+        function formatTime(date) {
+            return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+        
+        // Event listeners for navigation
+        prevMonthButton.addEventListener('click', () => {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            renderCalendar();
+        });
+        
+        nextMonthButton.addEventListener('click', () => {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            renderCalendar();
+        });
+        
+        // Add new event
+        addEventButton.addEventListener('click', () => {
+            const title = eventTitleInput.value.trim();
+            const date = new Date(eventDateInput.value);
+            
+            if (!title) {
+                alert('Please enter an event title');
+                return;
+            }
+            
+            if (!eventDateInput.value) {
+                alert('Please select a date');
+                return;
+            }
+            
+            // Add event
+            events.push({
+                title,
+                date,
+                id: Date.now() // Simple unique ID
+            });
+            
+            // Clear inputs
+            eventTitleInput.value = '';
+            eventDateInput.valueAsDate = new Date();
+            
+            // Update calendar
+            renderCalendar();
+            
+            // Show confirmation
+            alert('Event added successfully!');
+        });
+        
+        // Initial render
+        renderCalendar();
+    </script>
+</body>
+</html>
